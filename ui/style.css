@@ -1,0 +1,46 @@
+@import url('https://fonts.cdnfonts.com/css/gotham');
+
+* {
+	font-family: 'Gotham', sans-serif;
+}
+
+:root {
+	--axon-green: #008E6B;
+	--main-color: #3B3B3B;
+	--main-bg: #EBEBEB;
+	--default-white: #FFFFFF;
+	--default-black: #000000;
+	--default-black-lower-opacity: #00000080;
+	--ligther-black: #111111;
+	--tank-gray: #868686;
+	--tank-badge: #5c5c5c;
+	--breadcrumb-gray: #909090;
+	--active-button: #f59c02;
+	--unique-button: #034e8c;
+	--beer-orange: #FFB526;
+	--beer-dark-orange-gradient: #E38229;
+	--beer-red-gradient: #E32929;
+	--view-mode-selector-bg: #00B2FF;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: #a3a3a3 #d9d9d9;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+	background: #d9d9d9;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #a3a3a3;
+	border-radius: 2px;
+	border: 1px solid transparent;
+}
