@@ -1,10 +1,7 @@
 <script>
     import OdpStatusBadge from "../Badges/OdpStatusBadge.svelte";
     import PopUpAlteraNumOp from "./PopUpAlteraNumOp.svelte";
-    import StatusDoughnut from "./StatusDoughnut.svelte";
 	import { Utils } from "../../utils/Utils";
-
-	export let statusResult;
 
 	let popUpAlteraOp = false;
 	function handlePopUpAlteraOp(eventType) {
@@ -20,14 +17,6 @@
 </script>
 
 <div class="card">
-	{#key statusResult}
-		{#if statusResult.total}
-			<div class="infoCerveja">
-				<div class="titulo">Processos</div>
-				<StatusDoughnut total={statusResult.total} value={statusResult.value}/>
-			</div>
-		{/if}
-	{/key}
 	<div class="areaInfos">
 		<div class="infoCerveja">
 			<div class="titulo">Cerveja</div>

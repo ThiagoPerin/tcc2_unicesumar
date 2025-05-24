@@ -45,45 +45,9 @@
 		}
 	};
 
-	function checkStatus(data) {
-		return data.map(el => {
-			let op = el["NUM_OPERACAO"];
-			delete el["COMPANY"];
-			delete el["NUM_OPERACAO"];
-			delete el["ATIVIDADE_CALENDARIO"];
-			
-			if(el["BRASSAGEM"] + el["PREPARACAO_MALTES"] >= 1) {
-				el["BRASSAGEM"] = 1;
-			}
-			delete el["PREPARACAO_MALTES"];
-
-			if(el["DADOS_CENTRIFUGACAO"] + el["DADOS_CENTRIFUGACAO_RESUMO"] >= 1) {
-				el["DADOS_CENTRIFUGACAO"] = 1;
-			}
-			delete el["DADOS_CENTRIFUGACAO_RESUMO"];
-
-			if(el["ENVASE_LATAS"] + el["ENVASE_BARRIS"] >= 1) {
-				el["ENVASE_LATAS"] = 1;
-			}
-			delete el["ENVASE_BARRIS"];
-
-			const values = Object.values(el);
-			const soma = values.reduce((acc, val) => acc + val, 0);
-			return {op: op, value: soma, total: values.length};
-		})
-	}
-
-	function encontrarOp(statusResult, numeroOp) {
-    	return statusResult.find(item => item.op === numeroOp) || null;
-	}
-
-	let statusData = [];
-	let statusResult = [];
 	onMount(async () => {
 		odpListFull = await OpFetches.fetchOpData();
 		odpList = odpListFull;
-		statusData = await OpFetches.OpStatus();
-		statusResult = checkStatus(statusData);
 		handleSearch();
 		loader = false;
 	});
@@ -110,28 +74,36 @@
 					<div class="viewOptions">
 						{#key viewMode}
 							{#if viewMode === "grid"}
-								<i class="fa-solid fa-table-cells-large selected"></i>
-								<i class="fa-solid fa-bars" on:click={changeViewMode}></i>
+								<button type="button" class="btn btn-primary btn-sm" disabled>
+									<i class="fa-solid fa-table-cells-large"></i>
+								</button>
+								<button type="button" class="btn btn-outline-primary btn-sm" on:click={changeViewMode}>
+									<i class="fa-solid fa-bars"></i>
+								</button>
 							{:else}
-								<i class="fa-solid fa-table-cells-large" on:click={changeViewMode}></i>
-								<i class="fa-solid fa-bars selected"></i>
+								<button type="button" class="btn btn-outline-primary btn-sm" on:click={changeViewMode}>
+									<i class="fa-solid fa-table-cells-large"></i>
+								</button>
+								<button type="button" class="btn btn-primary btn-sm" disabled>
+									<i class="fa-solid fa-bars"></i>
+								</button>
 							{/if}
 						{/key}
 					</div>
 				</div>
 				<div class="reports {viewMode === "grid" ? "reports-column" : "reports-row"}">
-					{#if odpList.length > 0 && statusResult.length > 0}
+					{#if odpList.length > 0}
 						{#key viewMode}
 							{#if viewMode === "grid"}
 								{#key odpList}
 									{#each odpList as odp}
-										<ReportCardVertical {odp} statusResult={encontrarOp(statusResult, odp["NUM_OPERACAO"])}/>
+										<ReportCardVertical {odp} />
 									{/each}
 								{/key}
 							{:else}
 								{#key odpList}
 									{#each odpList as odp}
-										<ReportCardHorizontal {odp} statusResult={encontrarOp(statusResult, odp["NUM_OPERACAO"])}/>
+										<ReportCardHorizontal {odp} />
 									{/each}
 								{/key}
 							{/if}
@@ -223,19 +195,7 @@
 		flex-direction: row;
 		height: fit-content;
 		width: fit-content;
-	}
-	.viewOptions i {
-		font-size: 25px;
-		margin: 0;
-		padding: 5px;
-		cursor: pointer;
-		border-radius: 5px;
-		color: var(--default-black);
-	}
-	
-	.viewOptions .selected {
-		color: var(--default-white);
-		background: var(--view-mode-selector-bg);
+		gap: 5px;
 	}
 
 	.reports {
