@@ -15,11 +15,6 @@ export class OpFetches {
 		return await res.json();
 	}
 
-	static async OpStatus(numOperacao?: string): Promise<any[]> {
-		const res = await fetch(`/api/v1/op/menu/status?numOperacao=${numOperacao}`);
-		return await res.json();
-	}
-
 	static async editOpInfo(data: any): Promise<any> {
 		const res = await fetch(`/api/v1/odp/edit`, {
 			method: 'POST',
