@@ -59,17 +59,11 @@
         <button type="button" class="btn btn-outline-default close-btn" on:click={close}><i class="fas fa-bars"/></button>
         <div class="sidebar-footer">
             <div class="sidebar-btns">
-                <a href="https://axontechnology.freshdesk.com/" title="Suporte Axon">
-                    <button type="button" class="btn btn-outline-primary menu-btns">
-                        <i class="fas fa-headset"/>
-                    </button>
-                </a>
                 <a href="/logout"  title="Encerrar sessão">
                     <button type="button" class="btn btn-outline-danger menu-btns">Encerrar sessão</button>
                 </a>
             </div>
-            <img src="/images/Axon Beer - preto fundo transparente.png" alt="Axon Beer" id="logoAxonBeer"/>
-            <a class="direitos" href="https://axontechnology.com.br/">© Axon Technology {ano}</a>
+            <a class="direitos" href="https://github.com/ThiagoPerin">© Thiago Perin {ano}</a>
         </div>
     </div>
 {/if}
@@ -169,12 +163,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    #logoAxonBeer {
-        margin: 10px 0px;
-        width: 100%;
-        padding: 10px;
     }
 
     .direitos {
