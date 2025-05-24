@@ -73,27 +73,4 @@ export class OpModel {
 			callback
 		);
 	}
-
-	static getOpMenuStatus(
-		numOperacao: number | undefined,
-		company: string,
-		callback: (error: any, results: any) => void
-	) {
-		pool.query(
-			`SELECT * FROM ${process.env["MYSQL_DB"] as string}.VIEW_MENU_PRODUCAO_STATUS WHERE NUM_OPERACAO = ? AND COMPANY = ?;`,
-			[numOperacao, company],
-			callback
-		);
-	}
-
-	static getOpMenuStatusGeneral(
-		company: string,
-		callback: (error: any, results: any) => void
-	) {
-		pool.query(
-			`SELECT * FROM ${process.env["MYSQL_DB"] as string}.VIEW_MENU_PRODUCAO_STATUS WHERE COMPANY = ?;`,
-			[company],
-			callback
-		);
-	}
 }

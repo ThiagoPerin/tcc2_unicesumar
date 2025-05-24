@@ -186,10 +186,6 @@ apiRouter.route("/dashboard/donut/latas")
 apiRouter.route("/dashboard/donut/latas/detalhado")
 	.get(DashboardController.getDonutLatasDetalhado);
 
-//////////////////// Verificação de quais tabelas estao preenchidas /////////////////////
-apiRouter.route("/op/menu/status")
-	.get(OpController.getOpMenuStatus);
-
 //////////////////// EXIBIÇÃO TANQUES /////////////////////
 apiRouter.route("/tanque")
 	.get(TanqueController.getTanque);

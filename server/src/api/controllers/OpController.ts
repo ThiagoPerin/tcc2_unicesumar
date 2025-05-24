@@ -3,7 +3,7 @@ import { OpModel } from "../models/OpModel";
 
 export class OpController {
 	static getOp(_req: Request, res: Response) {
-		
+
 		const company = "empresa_teste_123";
 		OpModel.getOp(company, (err, results) => {
 			if (err) {
@@ -19,7 +19,7 @@ export class OpController {
 	}
 
 	static addOp(req: Request, res: Response) {
-		
+
 		const userId = "user_teste_123";
 		const company = "empresa_teste_123";
 		const numOperacao = req.body["numOperacao"] || undefined;
@@ -66,7 +66,7 @@ export class OpController {
 	}
 
 	static updateStatus(req: Request, res: Response) {
-		
+
 		const company = "empresa_teste_123";
 		const numOperacao = req.body["numOperacao"] || undefined;
 		const status = req.body["status"] || undefined;
@@ -103,36 +103,5 @@ export class OpController {
 			}
 			return;
 		});
-	}
-
-	static getOpMenuStatus(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
-		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		if(numOperacao) {
-			OpModel.getOpMenuStatus(numOperacao, company, (err, results) => {
-				if (err) {
-					console.log(err);
-					return res.status(500).json({
-						success: false,
-						msg: "Erro no servidor.",
-					});
-				} else {
-					return res.json(results);
-				}
-			});
-		} else {
-			OpModel.getOpMenuStatusGeneral(company, (err, results) => {
-				if (err) {
-					console.log(err);
-					return res.status(500).json({
-						success: false,
-						msg: "Erro no servidor.",
-					});
-				} else {
-					return res.json(results);
-				}
-			});
-		}
 	}
 }
