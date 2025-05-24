@@ -3,22 +3,11 @@
 	export let titulo = "";
 	export let destino = "";
 	export let image = "";
-	export let status = 0;
-	export let dadoUnico = false;
-
-	function statusColor() {
-		if(dadoUnico) {
-			return "unico"
-		} else if (Boolean(Number(status))) {
-			return "ativo"
-		} else {
-			return
-		}
-	}
 </script>
+
 <a href="/#{destino}" in:fly={{ y: 100, duration: 600 }}>
 	<div class="cardBox">
-		<div class="blackCard {statusColor()}">
+		<div class="blackCard">
 			<img src="/images/icons/{image}" alt="Bodebrown" class="icone" />
 		</div>
 		<div class="titulo">{titulo}</div>
@@ -82,13 +71,6 @@
 	a:hover .blackCard {
 		transform: rotate(90deg);
 	} 
-
-	.ativo {
-		background-color: var(--active-button);
-	}
-	.unico {
-		background-color: var(--unique-button);
-	}
 
 	.titulo {
 		height: 100%;
