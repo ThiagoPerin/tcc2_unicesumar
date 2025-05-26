@@ -29,9 +29,6 @@
 		"/production/menu": wrap({
 			asyncComponent: () => import("./routes/ProductionMenu.svelte")
 		}),
-		"/production/calendar/geral": wrap({
-			asyncComponent: () => import("./routes/CalendarPageGeneral.svelte")
-		}),
 		"/production/odp/new": wrap({
 			asyncComponent: () => import("./routes/NewOdp.svelte")
 		}),
@@ -71,26 +68,11 @@
 		"/production/odp/envase": wrap({
 			asyncComponent: () => import("./routes/Envase.svelte")
 		}),
-		"/production/odp/priming": wrap({
-			asyncComponent: () => import("./routes/Priming.svelte")
-		}),
-		"/production/odp/centrifugacao": wrap({
-			asyncComponent: () => import("./routes/Centrifugacao.svelte")
-		}),
 		"/production/odp/brassagem": wrap({
 			asyncComponent: () => import("./routes/Brassagem.svelte")
 		}),
 		"/production/odp/printdocsop": wrap({
 			asyncComponent: () => import("./routes/PrintDocumentsOp.svelte")
-		}),
-		"/production/odp/pasteurizacao": wrap({
-			asyncComponent: () => import("./routes/Pasteurizacao.svelte")
-		}),
-		"/production/calendar": wrap({
-			asyncComponent: () => import("./routes/CalendarPage.svelte")
-		}),
-		"/production/gantt": wrap({
-			asyncComponent: () => import("./routes/GanttPage.svelte")
 		}),
 	}}
 />
