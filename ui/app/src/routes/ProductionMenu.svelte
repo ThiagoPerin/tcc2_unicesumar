@@ -20,8 +20,6 @@
 			<MenuCardLink titulo={"Nova ordem de produção"} destino={"/production/odp/new"} image={"new.svg"}/>
 			<MenuCardBtn titulo={"Apontamento e inspeção"} image={"search.svg"} on:message={() => handlePopUP(true)}/>
 			<MenuCardLink titulo={"Visualizar ordens"} destino={"/production/reports"} image={"document.svg"}/>
-			<MenuCardLink titulo={"Calendário"} destino={"/production/calendar/geral"} image={"calendar.svg"}/>
-			<MenuCardLink titulo={"Gantt"} destino={"/production/gantt"} image={"new.svg"}/>
 			{#key popUp}
 				{#if popUp}
 					<FindOpPopUp on:message={() => handlePopUP(false)}/>
