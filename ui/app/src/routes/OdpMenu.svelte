@@ -32,12 +32,8 @@
 					<OdpMenuCardLink titulo={"Coleta de levedura"} destino={`/production/odp/levedura?odp=${odp}&lote=${lote}`} image={"/coleta.svg"}/>
 					<OdpMenuCardLink titulo={"Dry Hopping adjuntos e clarificação"} destino={`/production/odp/dryhopping?odp=${odp}&lote=${lote}`} image={"/dryHopping.svg"}/>
 					<OdpMenuCardLink titulo={"Transferências (purgas e descartes)"} destino={`/production/odp/transferencia?odp=${odp}&lote=${lote}`} image={"/transferencia.svg"}/>
-					<OdpMenuCardLink titulo={"Centrifugação"} destino={`/production/odp/centrifugacao?odp=${odp}&lote=${lote}`} image={"/centrifuga.svg"}/>
-					<OdpMenuCardLink titulo={"Priming"} destino={`/production/odp/priming?odp=${odp}&lote=${lote}`} image={"/priming.svg"}/>
 					<OdpMenuCardLink titulo={"Envase"} destino={`/production/odp/envase?odp=${odp}&lote=${lote}`} image={"/envase.svg"}/>
 					<OdpMenuCardLink titulo={"Carbonatação"} destino={`/production/odp/carbonatacao?odp=${odp}&lote=${lote}`} image={"/bolha.svg"}/>
-					<OdpMenuCardLink titulo={"Pasteurização"} destino={`/production/odp/pasteurizacao?odp=${odp}&lote=${lote}`} image={"/pasteurizacao.png"}/>
-					<OdpMenuCardLink titulo={"Calendário"} destino={`/production/calendar?odp=${odp}&lote=${lote}`} image={"/calendar.svg"}/>
 				</div>
 			</div>
 			<PageNavigation pathToHere={pathToHere} page={pageTitle}/>
