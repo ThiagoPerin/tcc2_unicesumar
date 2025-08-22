@@ -9,7 +9,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         unauthorized: path.resolve(__dirname, "unauthorized/index.html"),
-        app: path.resolve(__dirname, "app/index.html")
+        app: path.resolve(__dirname, "app/index.html"),
+        login: path.resolve(__dirname, "login/index.html")
       }
     },
     outDir: "../server/static",
