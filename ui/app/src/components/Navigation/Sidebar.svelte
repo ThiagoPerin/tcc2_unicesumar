@@ -59,9 +59,9 @@
         <button type="button" class="btn btn-outline-default close-btn" on:click={close}><i class="fas fa-bars"/></button>
         <div class="sidebar-footer">
             <div class="sidebar-btns">
-                <a href="/logout"  title="Encerrar sessão">
-                    <button type="button" class="btn btn-outline-danger menu-btns">Encerrar sessão</button>
-                </a>
+                <form action="/auth/logout" method="POST">
+                    <button type="submit" class="btn btn-outline-danger menu-btns">Encerrar sessão</button>
+                </form>
             </div>
             <a class="direitos" href="https://github.com/ThiagoPerin">© Thiago Perin {ano}</a>
         </div>
