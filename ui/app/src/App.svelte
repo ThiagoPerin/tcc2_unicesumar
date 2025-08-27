@@ -20,9 +20,6 @@
 		"/dashboards": wrap({
 			asyncComponent: () => import("./routes/DashboardPanel.svelte")
 		}),
-		"/tagprinter": wrap({
-			asyncComponent: () => import("./routes/TagPrintPage.svelte")
-		}),
 		"/tanques": wrap({
 			asyncComponent: () => import("./routes/Tanques.svelte")
 		}),

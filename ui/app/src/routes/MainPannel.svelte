@@ -9,7 +9,6 @@
 		<div class="content">
 			<MenuCardLink titulo={"Produção"} destino={"/production/menu"} image={"industry.svg"}/>
 			<MenuCardLink titulo={"Cadastros"} destino={"/cadastro/menu"} image={"singup.svg"}/>
-			<!-- <MenuCardLink titulo={"Tagmaker"} destino={"/tagmaker"} image={"etiqueta.svg"}/>  -->
 			<MenuCardLink titulo={"Dashboards"} destino={"/dashboards"} image={"dashs.svg"}/>
 			<MenuCardLink titulo={"Tanques"} destino={"/tanques"} image={"tanques.svg"}/>
 		</div>
