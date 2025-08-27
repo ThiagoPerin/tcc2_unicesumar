@@ -19,7 +19,7 @@
 		showPopUpErro = eventType
 	}
 
-	let insertResult = {} as any; // Dami ordenou, mas nao recomendou.
+	let insertResult = {} as any;
 	async function addRegister(e) {
 		const data = {
 			numOperacao: odp,
@@ -48,30 +48,6 @@
 	function changeOperationType() {
 		deTanque = undefined;
 		paraTanque = undefined;
-		transferenciaMaxima = undefined;
-	}
-
-	let transferenciaMaxima;
-	async function maxVolume() {
-		const tanquesView = await TanqueFetches.fetchTanqueDashboard();
-
-		const tanqueDeOrigem = tanquesView.find(el => el["NUM_TANQUE"] === deTanque);
-		const volumeMaxTanqueOrigem = Number(tanqueDeOrigem?.["VOLUME"]) || 0;
-
-		const tanqueDeDestino = tanquesView.find(el => el["NUM_TANQUE"] === paraTanque);
-		const volumeAtualParaTanque = Number(tanqueDeDestino?.["VOLUME"]) || 0;
-		const capacidadeParaTanque = Number(tanqueDeDestino?.["CAPACIDADE"]) || 0;
-		const volumeMaxTanqueDestino = capacidadeParaTanque - volumeAtualParaTanque;
-
-		if (tipoOperacao === TipoOperacao.TRANSFERENCIA) {
-			transferenciaMaxima = Math.min(volumeMaxTanqueOrigem, volumeMaxTanqueDestino);
-		} else if (tipoOperacao === TipoOperacao.ABASTECIMENTO) {
-			transferenciaMaxima = volumeMaxTanqueDestino;
-		} else if (tipoOperacao === TipoOperacao.ESVAZIAMENTO) {
-			transferenciaMaxima = volumeMaxTanqueOrigem;
-		} else {
-			return;
-		}
 	}
 
 	let tanqueSelect = []
@@ -102,7 +78,7 @@
 		</div>
 		<div class="inputDiv">
 			<label for="deTanque" class="form-label">De tanque</label>
-			<select class="form-select inputTag" placeholder="Selecionar tanque" id="deTanque" bind:value={deTanque} on:change={maxVolume} disabled={tipoOperacao == TipoOperacao.ABASTECIMENTO} required={tipoOperacao !== TipoOperacao.ABASTECIMENTO}>
+			<select class="form-select inputTag" placeholder="Selecionar tanque" id="deTanque" bind:value={deTanque} disabled={tipoOperacao == TipoOperacao.ABASTECIMENTO} required={tipoOperacao !== TipoOperacao.ABASTECIMENTO}>
 				{#each tanqueSelect.filter(el => el["NUM_TANQUE"] !== paraTanque) as el (el["NUM_TANQUE"])}
 					<option value="{el["NUM_TANQUE"]}">{el["NUM_TANQUE"]}</option>
 				{/each}
@@ -110,7 +86,7 @@
 		</div>
 		<div class="inputDiv">
 			<label for="paraTanque" class="form-label">Para tanque</label>
-			<select class="form-select inputTag" placeholder="Selecionar tanque" id="paraTanque" bind:value={paraTanque} on:change={maxVolume} disabled={tipoOperacao == TipoOperacao.ESVAZIAMENTO} required={tipoOperacao !== TipoOperacao.ESVAZIAMENTO}>
+			<select class="form-select inputTag" placeholder="Selecionar tanque" id="paraTanque" bind:value={paraTanque} disabled={tipoOperacao == TipoOperacao.ESVAZIAMENTO} required={tipoOperacao !== TipoOperacao.ESVAZIAMENTO}>
 				{#each tanqueSelect.filter(el => el["NUM_TANQUE"] !== deTanque) as el (el["NUM_TANQUE"])}
 					<option value="{el["NUM_TANQUE"]}">{el["NUM_TANQUE"]}</option>
 				{/each}
@@ -120,12 +96,7 @@
 	<div class="inputsArea">
 		<div class="inputDiv">
 			<label for="transfTotal" class="form-label">Transferência (L)</label>
-			<input type="number" class="form-control inputTag" id="transfTotal" step=".001" bind:value={transfTotal} min="0" max="{transferenciaMaxima}" disabled={!(deTanque || paraTanque)} required/>
-			{#key transferenciaMaxima}
-				{#if transferenciaMaxima !== undefined}
-					<div class="input-alert">Máximo possível: {transferenciaMaxima} L.</div>
-				{/if}
-			{/key}
+			<input type="number" class="form-control inputTag" id="transfTotal" step=".001" bind:value={transfTotal} min="0" disabled={!(deTanque || paraTanque)} required/>
 		</div>
 		<div class="inputDiv">
 			<label for="responsavel" class="form-label">Desacarte (L)</label>
@@ -219,12 +190,6 @@
 
 	textarea {
   		max-height: 150px;
-	}
-
-	.input-alert {
-		color: red;
-		/* font-weight: lighter; */
-		font-size: 12px;
 	}
 
 	@media screen and (max-width: 650px) {
