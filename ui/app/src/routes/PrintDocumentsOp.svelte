@@ -142,11 +142,10 @@
 </script>
 
 <div id="context-pdf" style="width:800px, height:auto">
-  <div>
-    <img class="logo-axon" on:click={onafterprint} src="/images/cabecalhoImpressaoAxon.png" alt="" />
-  </div>
   <div id="gerarPDF" class="gerarPDF">
-    <i class="fa-solid fa-file-pdf PDF" on:click={generationPdf} />
+    <button class="downloadBtn" on:click={generationPdf}>
+      <i class="fa-solid fa-file-pdf" />
+    </button>
   </div>
   <div class="title">
     <h2>Ordem de produção - OP: {odp} Lote: {lote}</h2>
@@ -248,14 +247,8 @@
 </div>
 
 <style>
-  .logo-axon {
-    height: 3%;
-    width: 100%;
-  }
-
   .gerarPDF {
     display: flex;
-    /* z-index: 999999999999; */
     flex-direction: column;
     justify-content: end;
     align-items: center;
@@ -268,7 +261,7 @@
     background-color: var(--default-black)0;
   }
 
-  .PDF {
+  .downloadBtn {
     display: flex;
     width: 60px;
     height: 60px;
