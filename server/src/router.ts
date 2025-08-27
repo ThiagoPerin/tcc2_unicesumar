@@ -24,4 +24,9 @@ authRouter.post("/login", [sanitizeInput], (req: Request, res: Response) => {
 	}
 });
 
+authRouter.post("/logout", (_req: Request, res: Response) => {
+	res.clearCookie("_bta");
+	res.status(200).redirect("/login");
+});
+
 export default authRouter;
