@@ -1,13 +1,6 @@
 <script>
-    import Sidebar from "./Sidebar.svelte";
     export let pageTitle = "";
-
     let pagePaths = [{ link: "/production/reports" }];
-
-    let menuVisible = false;
-    function setMenuVisibility(value) {
-        menuVisible = value;
-    }
 </script>
 
 <div id="navbarAxon" >
@@ -17,12 +10,12 @@
         </a>
         <h1 class="pageTitle">{pageTitle}</h1>
     </div>
-    <button type="button" class="btn btn-outline-light" on:click={() => setMenuVisibility(true)}>
-        <i class="fas fa-bars"></i>
-    </button>
+    <form action="/auth/logout" method="POST">
+        <button type="submit" class="btn btn-outline-light">
+            <i class="fas fa-right-from-bracket"></i>
+        </button>
+    </form>
 </div>
-
-<Sidebar on:close={() => setMenuVisibility(false)} {menuVisible}/>
 
 <style>
     #navbarAxon {
