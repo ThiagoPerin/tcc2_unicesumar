@@ -1,10 +1,10 @@
 <script>
-    import Sidebar from './Sidebar.svelte';
+    import Sidebar from "./Sidebar.svelte";
     export let pageTitle = "";
-    
-    let pagePaths = [{link: "/production/reports"}];
 
-    let menuVisible = false
+    let pagePaths = [{ link: "/production/reports" }];
+
+    let menuVisible = false;
     function setMenuVisibility(value) {
         menuVisible = value;
     }
@@ -13,9 +13,8 @@
 <div id="navbarAxon" >
     <div class="pageInfos">
         <a href="/#{pagePaths.at(-1).link}" class="title">
-            <div>Thigas Beers</div>
+            <img src="/images/lupulo-branco.png" alt="Logo" class="logo" />
         </a>
-
         <h1 class="pageTitle">{pageTitle}</h1>
     </div>
     <button type="button" class="btn btn-outline-light" on:click={() => setMenuVisibility(true)}>
@@ -23,31 +22,19 @@
     </button>
 </div>
 
-
 <Sidebar on:close={() => setMenuVisibility(false)} {menuVisible}/>
 
 <style>
     #navbarAxon {
         width: 100%;
-        min-height: 70px;
+        height: 70px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         background-color: var(--main-color);
-        box-shadow: 1px 5px 10px var(--default-black)40;
-        color: var(--default-white);
-        padding: 0px 20px;
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .title {
-        font-size: 22px;
-        font-weight: bold;
-        color: #ffffff;
-        text-decoration: none;
-        outline: none;
+        box-shadow: 1px 5px 10px var(--default-black) 40;
+        padding: 10px;
     }
 
     .pageInfos {
@@ -59,11 +46,15 @@
         justify-content: flex-start;
     }
 
+    .logo {
+        height: 50px;
+    }
+
     .pageTitle {
         text-align: center;
         font-weight: bold;
         font-size: 16px;
         margin: 0;
-        padding: 0;
+        color: var(--default-white);
     }
 </style>
