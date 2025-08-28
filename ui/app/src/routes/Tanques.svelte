@@ -1,75 +1,102 @@
 <script>
 	const pageTitle = "TANQUES";
-	import {flip} from 'svelte/animate';
-	import {fade} from 'svelte/transition';
 	import NavbarAxon from "../components/Navigation/NavbarAxon.svelte";
-    import PageNavigation from "../components/Navigation/PageNavigation.svelte";
-    import TanqueCard from "../components/Cards/TanqueCard.svelte";
-	import { onMount } from 'svelte';
-    import NoRowsWarn from "../components/Navigation/NoRowsWarn.svelte";
-    import PopUpTanques from "../components/Cards/PopUpTanques.svelte";
-    import SearchBtn from "../components/Buttons/SearchBtn.svelte";
-	import { TanqueFetches } from "../fetches/TanqueFetches";
+	import PageNavigation from "../components/Navigation/PageNavigation.svelte";
+    import TanquesTableRow from "../components/Tables/TanquesTableRow.svelte";
+    import PopUpErro from "../components/Cards/PopUpErro.svelte";
+    import PopUpSucesso from "../components/Cards/PopUpSucesso.svelte";
+    import { onMount } from "svelte";
+    import { TanqueFetches } from "../fetches/TanqueFetches";
 
-	let popUpTanques = false;
+	function handlePopUpErro(eventType) {
+		showPopUpErro = eventType;
+	}
 
-	async function hanldePopUpTanques(eventType) {
-		popUpTanques = eventType;
-		if(!eventType) {
-			registrosFull = await TanqueFetches.fetchTanqueDashboard();
-			registros = registrosFull;
+	let numTanque, capacidade;
+	let insertResult = {};
+	let showPopUpSucesso = false;
+	let showPopUpErro = false;
+
+	async function addRegister(e) {
+		const data = {
+			numTanque: numTanque,
+			capacidade: capacidade,
+		};
+		e.preventDefault();
+		insertResult = await TanqueFetches.addTanqueRegister(data);
+		if (insertResult.success) {
+			reload();
+		} else {
+			showPopUpErro = true;
 		}
 	}
 
-	function handleSearch(event){
-		let search = event.detail.text
-		registros = registrosFull.filter(el => {
-			if(
-			(el["PRODUTO"] && (el["PRODUTO"].toLowerCase()).includes(search.toLowerCase())) ||
-			(el["OP_ATUAL"] && (el["OP_ATUAL"].toString()).includes(search)) ||
-			(el["NUM_TANQUE"] && (el["NUM_TANQUE"].toString()).includes(search)) ||
-			(el["LOTE"] && (el["LOTE"].toLowerCase()).includes(search))){
-				 return el
-			}
-		})
+	async function reload() {
+		showPopUpSucesso = true;
+		numTanque = null;
+		capacidade = null;
+		registros = await TanqueFetches.fetchTanqueData();
+		setTimeout(() => {
+			showPopUpSucesso = false;
+		}, 1000);
 	}
 
-	let registrosFull = [];
 	let registros = [];
 	onMount(async () => {
-		registrosFull = await TanqueFetches.fetchTanqueDashboard();
-		registros = registrosFull
+		registros = await TanqueFetches.fetchTanqueData();
 	});
 </script>
 
 <main>
-	<NavbarAxon pageTitle={pageTitle}/>
+	<NavbarAxon {pageTitle} />
 	<div class="screen">
 		<div class="content">
-			<div class="filterArea">
-				<PageNavigation page={pageTitle} position={"static"}/>
-				<div class="buttonsArea">
-					<SearchBtn on:message={handleSearch}/>
-					<button type="button" class="btn btn-success cadastroBtn" on:click={() => hanldePopUpTanques(true)}>Cadastro de Tanques</button>
+			<PageNavigation page={pageTitle} position={"static"}/>
+			<form on:submit={(e) => addRegister(e)} autocomplete="off">
+				<div class="inputsArea">
+					<div class="inputDiv">
+						<label for="numTanque" class="form-label">Número do tanque</label>
+						<input type="number" class="form-control inputTag inputTagNumber" id="numTanque" bind:value={numTanque} required />
+					</div>
+					<div class="inputDiv">
+						<label for="capacidade" class="form-label">Capacidade (L)</label>
+						<input type="number" class="form-control inputTag" id="capacidade" bind:value={capacidade} required />
+					</div>
+					<button type="submit" class="btn btn-success">Adicionar tanque</button>
 				</div>
-			</div>
-			<div class="areaTanques">
-				{#if registros.length > 0}
-					{#each registros as registro (registros)}
-						<div class="card-wrapper" animate:flip="{{ delay: 0, duration: 700 }}" transition:fade="{{ delay: 0, duration: 300 }}">
-							<TanqueCard tanqueInfo={registro}/>
-						</div>
-					{/each}
-				{:else}
-					<NoRowsWarn msg={"Ainda não há dados sobre os tanques"}/>
-				{/if}
-			</div>
+				<div class="areaTabela">
+					<div class="tabela table-responsive">
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Número do Tanque</th>
+									<th scope="col">Capacidade</th>
+									<th scope="col">Ações</th>
+								</tr>
+							</thead>
+							<tbody id="corpoTabela">
+								{#key registros}
+									{#each registros as registro}
+										<TanquesTableRow {registro} on:message={reload} />
+									{/each}
+								{/key}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 
-	{#key popUpTanques}
-		{#if popUpTanques}
-			<PopUpTanques on:close={() => hanldePopUpTanques(false)}/>
+	{#key showPopUpErro}
+		{#if showPopUpErro}
+			<PopUpErro msg={insertResult.msg} on:message={() => handlePopUpErro(false)}/>
+		{/if}
+	{/key}
+
+	{#key showPopUpSucesso}
+		{#if showPopUpSucesso}
+			<PopUpSucesso/>
 		{/if}
 	{/key}
 </main>
@@ -89,7 +116,7 @@
 		display: flex;
 		flex-direction: row;
 		background-color: var(--main-bg);
-		padding: 10px 20px 0px;
+		padding: 10px 20px;
 		align-items: flex-start;
 	}
 
@@ -104,48 +131,84 @@
 		position: relative;
 	}
 
-	.filterArea {
-		height: fit-content;
+	form {
+		position: relative;
+		height: calc(100% - 45px);
 		width: 100%;
 		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		position: relative;
-		flex-wrap: wrap;
-	}
-
-	.buttonsArea {
-		height: fit-content;
-		width: fit-content;
-		display: flex;
-		flex-direction: row;
+		flex-direction: column;
+		align-items: flex-start;
 		justify-content: flex-start;
-		align-items: center;
-		flex-wrap: wrap;
 	}
 
-	.cadastroBtn {
-		margin: 5px 10px;
-	}
-
-	.areaTanques {
-		height: calc(100% - 60px);
+	.inputsArea {
+		height: fit-content;
 		width: 100%;
 		display: flex;
 		flex-direction: row;
-		align-items: center;
-		justify-content: space-evenly;
-		z-index: 9999;
-		position: relative;
+		align-items: flex-end;
+		justify-content: flex-start;
 		flex-wrap: wrap;
-		overflow-y: auto;
-		border-top: 1px solid #b3b3b3a8;
 	}
 
-	@media screen and (max-width: 580px) {
-		.areaTanques {
-			height: calc(100% - 120px);
+	.inputDiv {
+		min-width: 200px;
+		max-width: 200px;
+		margin: 5px;
+	}
+
+	button {
+		margin: 5px;
+	}
+
+	.areaTabela {
+		height: 100%;
+		width: 100%;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: start;
+		border: 2px solid rgb(197, 197, 197);
+		background-color: var(--default-white);
+		border-radius: 10px;
+		margin: 20px 0px;
+		overflow-y: auto;
+	}
+
+	.tabela {
+		width: 100%;
+		height: fit-content;
+	}
+
+	table {
+		width: 100%;
+		max-height: 100px;
+		overflow-y: auto;
+	}
+
+	thead {
+		position: sticky;
+		top: 0px;
+		z-index: 9999;
+		background-color: var(--default-white);
+	}
+
+	tr {
+		height: fit-content;
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	@media screen and (max-width: 520px) {
+		.inputsArea {
+			justify-content: center;
 		}
+	}
+
+	.inputTagNumber::-webkit-outer-spin-button,
+	.inputTagNumber::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
 	}
 </style>
