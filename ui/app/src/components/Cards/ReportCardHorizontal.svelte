@@ -1,12 +1,6 @@
 <script>
     import OdpStatusBadge from "../Badges/OdpStatusBadge.svelte";
-    import PopUpAlteraNumOp from "./PopUpAlteraNumOp.svelte";
 	import { Utils } from "../../utils/Utils";
-
-	let popUpAlteraOp = false;
-	function handlePopUpAlteraOp(eventType) {
-		popUpAlteraOp = eventType
-	}
 
 	export let odp = {};
 	let produto = odp["PRODUTO"] || "";
@@ -17,6 +11,7 @@
 </script>
 
 <div class="card">
+	<img src="/images/lupulo-preto.png" alt="">
 	<div class="areaInfos">
 		<div class="infoCerveja">
 			<div class="titulo">Cerveja</div>
@@ -40,15 +35,10 @@
 		</div>
 	</div>
 	<div class="actions">
-		<button type="button" class="btn btn-outline-danger" on:click={() => {handlePopUpAlteraOp(true)}}><i class="fa-solid fa-gear"/></button>
 		<a href="/#/production/odp/printdocsop?odp={numOperacao}&lote={lote}" title="Imprimir"><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-print"/></button></a>
 		<a href="/#/production/odp/menu?odp={numOperacao}&lote={lote}" title="Editar"><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"/></button></a> 
 	</div>
 </div>
-
-{#if popUpAlteraOp}
-	<PopUpAlteraNumOp on:close={() => handlePopUpAlteraOp(false)} id={odp.id} odp={numOperacao} lote={lote}/>
-{/if}
 
 <style>
 	.card {
@@ -63,6 +53,12 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+	}
+
+	img {
+		max-height: 100px;
+		width: 100px;
+		margin-right: 5px;
 	}
 
 	.areaInfos {
