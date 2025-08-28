@@ -1,12 +1,6 @@
 <script>
     import OdpStatusBadge from "../Badges/OdpStatusBadge.svelte";
-    import PopUpAlteraNumOp from "./PopUpAlteraNumOp.svelte";
 	import { Utils } from "../../utils/Utils";
-
-	let popUpAlteraOp = false;
-	function handlePopUpAlteraOp(eventType) {
-		popUpAlteraOp = eventType
-	}
 
 	export let odp = {};
 	let produto = odp["PRODUTO"] || "";
@@ -18,7 +12,7 @@
 
 <div class="card">
 	<div class="card-image">
-		<i class="fas fa-smile"></i>
+		<img src="/images/lupulo-preto.png" alt="">
 	</div>
 	<div class="infoCervejaMain">
 		<div class="titulo">Cerveja</div>
@@ -43,15 +37,10 @@
 		</div>
 	</div>
 	<div class="actions">
-		<button type="button" class="btn btn-outline-danger" on:click={() => {handlePopUpAlteraOp(true)}}><i class="fa-solid fa-gear"/></button>
 		<a href="/#/production/odp/printdocsop?odp={numOperacao}&lote={lote}" title="Imprimir"><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-print"/></button></a>
 		<a href="/#/production/odp/menu?odp={numOperacao}&lote={lote}" title="Editar"><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"/></button></a> 
 	</div>
 </div>
-
-{#if popUpAlteraOp}
-	<PopUpAlteraNumOp on:close={() => handlePopUpAlteraOp(false)} id={odp.id} odp={numOperacao} lote={lote}/>
-{/if}
 
 <style>
 	.card {
@@ -76,11 +65,15 @@
 		height: 100px;
 		border-radius: 15px 15px 0px 0px;
 		border-bottom: 2px solid #b3b3b3a8;
-		padding: 0px 10px;
+		padding: 10px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.card-image img {
+		height: 100%;
 	}
 
 	.areaInfos {
