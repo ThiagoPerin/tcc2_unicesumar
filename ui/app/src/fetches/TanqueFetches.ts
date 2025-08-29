@@ -1,9 +1,4 @@
 export class TanqueFetches {
-	static async fetchTanqueDashboard(): Promise<any[]> {
-		const res = await fetch(`/api/v1/tanque`);
-		return await res.json();
-	}
-
 	static async fetchTanqueData(): Promise<any[]> {
 		const res = await fetch(`/api/v1/tanque/register`);
 		return await res.json();
@@ -28,11 +23,6 @@ export class TanqueFetches {
 			},
 			body: JSON.stringify(data)
 		});
-		return await res.json();
-	}
-
-	static async tanqueHistorico(tanque: string): Promise<any[]> {
-		const res = await fetch(`/api/v1/tanque/historico?numTanque=${tanque}`);
 		return await res.json();
 	}
 }

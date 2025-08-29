@@ -5,17 +5,13 @@
   import { TransferenciaFetches } from "../fetches/TransferenciaFetches";
   import { CervejaFetches } from "../fetches/CervejaFetches";
   import { MedicaoPhFetches } from "../fetches/MedicaoPhFetches";
-  import { CentrifugacaoFetches } from "../fetches/CentrifugacaoFetches";
-  import { CentrifugacaoResumoFetches } from "../fetches/CentrifugacaoResumoFetches";
   import { InoculacaoFetches } from "../fetches/InoculacaoFetches";
   import { ColetaLeveduraFetches } from "../fetches/ColetaLeveduraFetches";
-  import { PrimingFetches } from "../fetches/PrimingFetches";
   import { MonitoramentoFetches } from "../fetches/MonitoramentoFetches";
   import { DryHoppingFetches } from "../fetches/DryHoppingFetches";
   import { EnvaseBarrilFetches } from "../fetches/EnvaseBarrilFetches";
   import { EnvaseLatasFetches } from "../fetches/EnvaseLatasFetches";
   import { CarbonatacaoFetches } from "../fetches/CarbonatacaoFetches";
-  import { PasteurizacaoFetches } from "../fetches/PasteurizacaoFetches";
   import { onMount } from "svelte";
   import PrintBrassagem from "../components/PrintOP/PrintBrassagem.svelte";
   import PrintBrassagemMalte from "../components/PrintOP/PrintBrassagemMalte.svelte";
@@ -23,11 +19,8 @@
   import PrintTransferncias from "../components/PrintOP/PrintTransferências.svelte";
   import PrintCerveja from "../components/PrintOP/PrintCerveja.svelte";
   import PrintMedicaoPh from "../components/PrintOP/PrintMedicaoPH.svelte";
-  import PrintCentrifugacao from "../components/PrintOP/PrintCentrifugacao.svelte";
-  import PrintResumoCentrifugao from "../components/PrintOP/PrintResumoCentrifugação.svelte";
   import PrintInoculao from "../components/PrintOP/PrintInoculacao.svelte";
   import PrintColetaLevedura from "../components/PrintOP/PrintColetaLevedura.svelte";
-  import PrintPriming from "../components/PrintOP/PrintPriming.svelte";
   import PrintMonitoramento from "../components/PrintOP/PrintMonitoramento.svelte";
   import PrintDryHopping from "../components/PrintOP/PrintDryHopping.svelte";
   import PrintEnvaseLata from "../components/PrintOP/PrintEnvaseLata.svelte";
@@ -35,7 +28,6 @@
   import PrintCarbonacao from "../components/PrintOP/PrintCarbonacao.svelte";
   import jsPDF from "jspdf";
   import html2canvas from "html2canvas";
-    import PrintPasteurizacao from "../components/PrintOP/PrintPasteurizacao.svelte";
 
   function getUrlParam(name) {
     let url = window.location.href;
@@ -51,17 +43,13 @@
   let registroTransferencia = [];
   let registroCerveja = [];
   let registroMedicaoPh = [];
-  let registroCentrifugacao = [];
-  let registroCentrifugacaoResumo = [];
   let registroInoculação = [];
   let registroColetaLevedura = [];
-  let registroPriming = [];
   let registroMonitoramento = [];
   let registroDryHopping = [];
   let registroEnvaseLata = [];
   let registroEnvaseBarril = [];
   let registroCarbonatacao = [];
-  let registroPasteurizacao = [];
 
   const dataDeImpressao = new Date();
   const dataFormatada = dataDeImpressao.toLocaleString();
@@ -79,15 +67,9 @@
 
     registroMedicaoPh = await MedicaoPhFetches.fetchMedicaoPhData(odp);
 
-    registroCentrifugacao = await CentrifugacaoFetches.fetchCentrifugacaoData(odp);
-
-    registroCentrifugacaoResumo = await CentrifugacaoResumoFetches.fetchCentrifugacaoResumoData(odp);
-
     registroInoculação = await InoculacaoFetches.fetchInoculacaoData(odp);
 
     registroColetaLevedura = await ColetaLeveduraFetches.fetchColetaLeveduraData(odp);
-
-    registroPriming = await PrimingFetches.fetchPrimingData(odp);
 
     registroMonitoramento = await MonitoramentoFetches.fetchMonitoramentoData(odp);
 
@@ -99,7 +81,6 @@
 
     registroCarbonatacao = await CarbonatacaoFetches.fetchCarbonatacaoData(odp);
 
-    registroPasteurizacao = await PasteurizacaoFetches.fetchPasteurizacaoData(odp);
   }
 
   onMount(async () => {
@@ -183,16 +164,6 @@
         <PrintMedicaoPh registroMedicaoPh={registro} />
       {/each}
 
-      <h5>Dados de centrifugação</h5>
-      {#each registroCentrifugacao as registro}
-        <PrintCentrifugacao registroCentrifugacao={registro} />
-      {/each}
-
-      <h5>Resumo centrifugação</h5>
-      {#each registroCentrifugacaoResumo as registro}
-        <PrintResumoCentrifugao registroCentrifugacaoResumo={registro} />
-      {/each}
-
       <h5>Inoculação de levedura</h5>
       {#each registroInoculação as registro}
         <PrintInoculao registroInoculação={registro} />
@@ -203,14 +174,11 @@
         <PrintColetaLevedura registroColetaLevedura={registro} />
       {/each}
 
-      <h5>Priming</h5>
-      {#each registroPriming as registro}
-        <PrintPriming registroPriming={registro} />
-      {/each}
       <h5>Monitoramento de extrato e temperatura</h5>
       {#each registroMonitoramento as registro}
         <PrintMonitoramento registroMonitoramento={registro} />
       {/each}
+
       <h5>Dry hopping, adjuntos e clarificação</h5>
       {#each registroDryHopping as registro}
         <PrintDryHopping registroDryHopping={registro} />
@@ -220,18 +188,15 @@
       {#each registroEnvaseLata as registro}
         <PrintEnvaseLata registroEnvaseLata={registro} />
       {/each}
+      
       <h5>Envase de Barris</h5>
       {#each registroEnvaseBarril as registro}
         <PrintEnvaseBarril registroEnvaseBarril={registro} />
       {/each}
+
       <h5>Carbonatação</h5>
       {#each registroCarbonatacao as registro}
         <PrintCarbonacao registroCarbonacao={registro} />
-      {/each}
-
-      <h5>Pasteurização</h5>
-      {#each registroPasteurizacao as registro}
-        <PrintPasteurizacao registro={registro} />
       {/each}
 
       <div class="dataImpressao">
