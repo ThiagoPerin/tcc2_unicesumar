@@ -13,23 +13,14 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "@fullcalendar/core": "^6.1.11",
-    "@fullcalendar/daygrid": "^6.1.11",
-    "@fullcalendar/interaction": "^6.1.11",
-    "@fullcalendar/moment": "^6.1.11",
-    "@fullcalendar/timegrid": "^6.1.11",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@tsconfig/svelte": "^5.0.4",
     "apexcharts": "^3.42.0",
-    "fullcalendar": "^6.1.11",
-    "html2pdf.js": "^0.10.1",
     "jspdf-html2canvas": "^1.5.1",
     "moment": "^2.30.1",
-    "mysql": "^2.18.1",
     "svelecte": "^3.16.0",
     "svelte": "^4.2.18",
     "svelte-check": "^3.8.5",
-    "svelte-gantt": "^4.4.2",
     "svelte-spa-router": "^3.2.0",
     "tslib": "^2.6.3",
     "vite": "^5.4.1"
