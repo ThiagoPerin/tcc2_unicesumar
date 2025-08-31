@@ -4,8 +4,7 @@ import { OpModel } from "../models/OpModel";
 export class OpController {
 	static getOp(_req: Request, res: Response) {
 
-		const company = "empresa_teste_123";
-		OpModel.getOp(company, (err, results) => {
+		OpModel.getOp((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -19,9 +18,6 @@ export class OpController {
 	}
 
 	static addOp(req: Request, res: Response) {
-
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
 		const numOperacao = req.body["numOperacao"] || undefined;
 		const lote = req.body["lote"] || undefined;
 		const dataEmissao = req.body["dataEmissao"] || undefined;
@@ -33,7 +29,7 @@ export class OpController {
 		const observacoes = req.body["observacoes"] || undefined;
 		const cliente = req.body["cliente"] || undefined;
 
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -47,7 +43,7 @@ export class OpController {
 				});
 			} else {
 
-				OpModel.addOp(numOperacao, lote, dataEmissao, produto, codigoProduto, tanquePrimario, capacidadeLote, responsavel, cliente, observacoes, userId, company, (err, _results) => {
+				OpModel.addOp(numOperacao, lote, dataEmissao, produto, codigoProduto, tanquePrimario, capacidadeLote, responsavel, cliente, observacoes, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -66,14 +62,11 @@ export class OpController {
 	}
 
 	static updateStatus(req: Request, res: Response) {
-
-		const company = "empresa_teste_123";
 		const numOperacao = req.body["numOperacao"] || undefined;
 		const status = req.body["status"] || undefined;
 		const lote = req.body["lote"] || undefined;
 
-
-		OpModel.checkExistance(numOperacao, company, (err, results) => {
+		OpModel.checkExistance(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -87,7 +80,7 @@ export class OpController {
 				});
 			} else {
 
-				OpModel.updateStatus(status, numOperacao, lote, company, (err, _results) => {
+				OpModel.updateStatus(status, numOperacao, lote, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({

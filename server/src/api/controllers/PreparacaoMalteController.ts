@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class PreparacaoMalteController {
 	static getPreparacaoMalte(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		PreparacaoMalteModel.getPreparacaoMalte(numOperacao, company, (err, results) => {
+		PreparacaoMalteModel.getPreparacaoMalte(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class PreparacaoMalteController {
 	}
 
 	static addPreparacaoMalte(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -43,7 +40,7 @@ export class PreparacaoMalteController {
 				const conferencia2 = req.body["conferencia2"] || undefined;
 				const moagem = req.body["moagem"] || undefined;
 
-				PreparacaoMalteModel.addPreparacaoMalte(separacao, conferencia1, conferencia2, moagem, numOperacao, userId, company, (err, _results) => {
+				PreparacaoMalteModel.addPreparacaoMalte(separacao, conferencia1, conferencia2, moagem, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -63,9 +60,8 @@ export class PreparacaoMalteController {
 
 	static deletePreparacaoMalte(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		PreparacaoMalteModel.deletePreparacaoMalte(id, company, (err, _results) => {
+
+		PreparacaoMalteModel.deletePreparacaoMalte(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

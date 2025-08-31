@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class EnvaseLataController {
 	static getEnvaseLata(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		EnvaseLataModel.getEnvaseLata(numOperacao, company, (err, results) => {
+		EnvaseLataModel.getEnvaseLata(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class EnvaseLataController {
 	}
 
 	static addEnvaseLata(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -52,9 +49,9 @@ export class EnvaseLataController {
 				const lab = req.body["lab"] || undefined;
 				const litros = req.body["litros"] || undefined;
 				const acidoAscorbico = req.body["acidoAscorbico"] || undefined;
-				const responsavel = req.body["responsavel"] || undefined;	
+				const responsavel = req.body["responsavel"] || undefined;
 
-				EnvaseLataModel.addEnvaseLata(dataEnvase, carbonatacao, tanque, tamanho, horaInicio, horaFim, quantidade, descarte, descarteTampa, amassadaMáquina, amassadaCabine, lab, litros, responsavel, acidoAscorbico, numOperacao, userId, company, (err, _results) => {
+				EnvaseLataModel.addEnvaseLata(dataEnvase, carbonatacao, tanque, tamanho, horaInicio, horaFim, quantidade, descarte, descarteTampa, amassadaMáquina, amassadaCabine, lab, litros, responsavel, acidoAscorbico, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -74,9 +71,8 @@ export class EnvaseLataController {
 
 	static deleteEnvaseLata(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		EnvaseLataModel.deleteEnvaseLata(id, company, (err, _results) => {
+
+		EnvaseLataModel.deleteEnvaseLata(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

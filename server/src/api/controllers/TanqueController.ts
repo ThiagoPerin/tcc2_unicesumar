@@ -4,8 +4,7 @@ import { TanqueModel } from "../models/TanqueModel";
 export class TanqueController {
 	static getTanqueRegister(_req: Request, res: Response) {
 
-		const company = "empresa_teste_123";
-		TanqueModel.getTanqueRegister(company, (err, results) => {
+		TanqueModel.getTanqueRegister((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -20,10 +19,8 @@ export class TanqueController {
 
 	static addTanqueRegister(req: Request, res: Response) {
 
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
 		const numTanque = req.body["numTanque"] || undefined;
-		TanqueModel.getTanqueRegisterByCode(numTanque, company, (err, results) => {
+		TanqueModel.getTanqueRegisterByCode(numTanque, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -38,7 +35,7 @@ export class TanqueController {
 			} else {
 				const numTanque = req.body["numTanque"] || undefined;
 				const capacidade = req.body["capacidade"] || undefined;
-				TanqueModel.addTanqueRegister(numTanque, capacidade, userId, company, (err, _results) => {
+				TanqueModel.addTanqueRegister(numTanque, capacidade, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -59,8 +56,7 @@ export class TanqueController {
 	static deleteTanqueRegister(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
 
-		const company = "empresa_teste_123";
-		TanqueModel.removeTanqueRegister(id, company, (err, _results) => {
+		TanqueModel.removeTanqueRegister(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

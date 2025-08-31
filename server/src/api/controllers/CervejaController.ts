@@ -3,10 +3,9 @@ import { CervejaModel } from "../models/CervejaModel";
 
 export class CervejaController {
 	static getCerveja(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		CervejaModel.getCerveja(numOperacao, company, (err, results) => {
+		CervejaModel.getCerveja(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -20,10 +19,9 @@ export class CervejaController {
 	}
 
 	static updateCerveja(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		CervejaModel.getCerveja(numOperacao, company, (err, results) => {
+		CervejaModel.getCerveja(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -62,7 +60,7 @@ export class CervejaController {
 					}
 				});
 
-				CervejaModel.updateCerveja(updateColumns, updateValues, numOperacao, company, (err, _results) => {
+				CervejaModel.updateCerveja(updateColumns, updateValues, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({

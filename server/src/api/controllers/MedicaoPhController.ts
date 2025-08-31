@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class MedicaoPhController {
 	static getMedicaoPh(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		MedicaoPhModel.getMedicaoPh(numOperacao, company, (err, results) => {
+		MedicaoPhModel.getMedicaoPh(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class MedicaoPhController {
 	}
 
 	static addMedicaoPh(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -43,7 +40,7 @@ export class MedicaoPhController {
 				const ph = req.body["ph"] || undefined;
 				const responsavel = req.body["responsavel"] || undefined;
 
-				MedicaoPhModel.addMedicaoPh(amostra, dataPh, ph, responsavel, numOperacao, userId, company, (err, _results) => {
+				MedicaoPhModel.addMedicaoPh(amostra, dataPh, ph, responsavel, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -63,9 +60,8 @@ export class MedicaoPhController {
 
 	static deleteMedicaoPh(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		MedicaoPhModel.deleteMedicaoPh(id, company, (err, _results) => {
+
+		MedicaoPhModel.deleteMedicaoPh(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

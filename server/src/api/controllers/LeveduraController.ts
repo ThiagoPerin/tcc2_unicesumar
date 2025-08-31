@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class LeveduraController {
 	static getLevedura(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		LeveduraModel.getLevedura(numOperacao, company, (err, results) => {
+		LeveduraModel.getLevedura(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class LeveduraController {
 	}
 
 	static addLevedura(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -47,7 +44,7 @@ export class LeveduraController {
 				const responsavel = req.body["responsavel"] || undefined;
 				const observacoes = req.body["observacoes"] || undefined;
 
-				LeveduraModel.addLevedura(dataColeta, tanque, temperatura, destino, lote, quantidade, responsavel, observacoes, numOperacao, userId, company, (err, _results) => {
+				LeveduraModel.addLevedura(dataColeta, tanque, temperatura, destino, lote, quantidade, responsavel, observacoes, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -67,9 +64,8 @@ export class LeveduraController {
 
 	static deleteLevedura(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		LeveduraModel.deleteLevedura(id, company, (err, _results) => {
+
+		LeveduraModel.deleteLevedura(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

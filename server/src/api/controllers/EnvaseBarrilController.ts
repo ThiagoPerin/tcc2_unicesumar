@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class EnvaseBarrilController {
 	static getEnvaseBarril(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		EnvaseBarrilModel.getEnvaseBarril(numOperacao, company, (err, results) => {
+		EnvaseBarrilModel.getEnvaseBarril(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class EnvaseBarrilController {
 	}
 
 	static addEnvaseBarril(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -49,8 +46,8 @@ export class EnvaseBarrilController {
 				const total = req.body["total"] || undefined;
 				const observacoes = req.body["observacoes"] || undefined;
 				const responsavel = req.body["responsavel"] || undefined;
-	
-				EnvaseBarrilModel.addEnvaseBarril(dataEnvase, tanque, p01, p02, p20, p30, growler, oak, total, responsavel, observacoes, numOperacao, userId, company, (err, _results) => {
+
+				EnvaseBarrilModel.addEnvaseBarril(dataEnvase, tanque, p01, p02, p20, p30, growler, oak, total, responsavel, observacoes, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -70,9 +67,8 @@ export class EnvaseBarrilController {
 
 	static deleteEnvaseBarril(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		EnvaseBarrilModel.deleteEnvaseBarril(id, company, (err, _results) => {
+
+		EnvaseBarrilModel.deleteEnvaseBarril(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

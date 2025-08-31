@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class DryHoppingController {
 	static getDryHopping(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		DryHoppingModel.getDryHopping(numOperacao, company, (err, results) => {
+		DryHoppingModel.getDryHopping(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class DryHoppingController {
 	}
 
 	static addDryHopping(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -49,7 +46,7 @@ export class DryHoppingController {
 				const validade = req.body["validade"] || undefined;
 				const responsavel = req.body["responsavel"] || undefined;
 
-				DryHoppingModel.addDryHopping(dataDryHopping, tanque, temperatura, produto, lote, alfaAcido, quantidade, unidade, validade, responsavel, numOperacao, userId, company, (err, _results) => {
+				DryHoppingModel.addDryHopping(dataDryHopping, tanque, temperatura, produto, lote, alfaAcido, quantidade, unidade, validade, responsavel, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -69,9 +66,8 @@ export class DryHoppingController {
 
 	static deleteDryHopping(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		DryHoppingModel.deleteDryHopping(id, company, (err, _results) => {
+
+		DryHoppingModel.deleteDryHopping(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

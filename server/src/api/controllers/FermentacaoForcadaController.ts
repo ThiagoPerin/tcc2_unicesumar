@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class FermentacaoForcadaController {
 	static getFermentacaoForcada(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		FermentacaoForcadaModel.getFermentacaoForcada(numOperacao, company, (err, results) => {
+		FermentacaoForcadaModel.getFermentacaoForcada(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class FermentacaoForcadaController {
 	}
 
 	static addFermentacaoForcada(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -47,7 +44,7 @@ export class FermentacaoForcadaController {
 				const observacoes = req.body["observacoes"] || undefined;
 				const responsavel = req.body["responsavel"] || undefined;
 
-				FermentacaoForcadaModel.addFermentacaoForcada(dataFermentacao, hora, extratoInicial, extratoFinal, diasTeste, horasAgit, responsavel, observacoes, numOperacao, userId, company, (err, _results) => {
+				FermentacaoForcadaModel.addFermentacaoForcada(dataFermentacao, hora, extratoInicial, extratoFinal, diasTeste, horasAgit, responsavel, observacoes, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -67,9 +64,8 @@ export class FermentacaoForcadaController {
 
 	static deleteFermentacaoForcada(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		FermentacaoForcadaModel.deleteFermentacaoForcada(id, company, (err, _results) => {
+
+		FermentacaoForcadaModel.deleteFermentacaoForcada(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

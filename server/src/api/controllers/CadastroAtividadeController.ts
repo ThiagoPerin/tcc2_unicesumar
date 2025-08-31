@@ -3,9 +3,8 @@ import { atividadeModel } from "../models/CadastroAtividadeModel";
 
 export class CadastroAtividadeController {
 	static getAtividade(_req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
-		atividadeModel.getAtividades(company, (err, results) => {
+
+		atividadeModel.getAtividades((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -19,16 +18,14 @@ export class CadastroAtividadeController {
 	}
 
 	static addAtividade(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const nomeAtividade = req.body["nomeAtividade"] || undefined;
 		const codigoAtividade = req.body["codigoAtividade"] || undefined;
 		const diasExecutar = req.body["diasExecutar"] || undefined;
 		const duracaoAtividade = req.body["duracaoAtividade"] || undefined;
 		const horarioExecucao = req.body["horarioExecucao"] || undefined;
 
-		atividadeModel.getAtividadeByCodeOrName(nomeAtividade, codigoAtividade, company, (err, results) => {
+		atividadeModel.getAtividadeByCodeOrName(nomeAtividade, codigoAtividade, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -41,7 +38,7 @@ export class CadastroAtividadeController {
 					msg: `Código da cerveja ou nome já em uso`,
 				});
 			} else {
-				atividadeModel.addatividade(codigoAtividade, nomeAtividade, diasExecutar, duracaoAtividade, horarioExecucao, userId, company, (err, _results) => {
+				atividadeModel.addatividade(codigoAtividade, nomeAtividade, diasExecutar, duracaoAtividade, horarioExecucao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -61,9 +58,8 @@ export class CadastroAtividadeController {
 
 	static deleteAtividade(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		atividadeModel.deleteAtividade(id, company, (err, _results) => {
+
+		atividadeModel.deleteAtividade(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

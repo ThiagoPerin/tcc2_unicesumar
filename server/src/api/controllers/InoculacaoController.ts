@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class InoculacaoController {
 	static getInoculacao(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		InoculacaoModel.getInoculacao(numOperacao, company, (err, results) => {
+		InoculacaoModel.getInoculacao(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class InoculacaoController {
 	}
 
 	static addInoculacao(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -46,7 +43,7 @@ export class InoculacaoController {
 				const quantidade = req.body["quantidade"] || undefined;
 				const responsavel = req.body["responsavel"] || undefined;
 
-				InoculacaoModel.addInoculacao(dataInoculacao, levedura, origemLote, contagem, validade, quantidade, responsavel, numOperacao, userId, company, (err, _results) => {
+				InoculacaoModel.addInoculacao(dataInoculacao, levedura, origemLote, contagem, validade, quantidade, responsavel, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -66,9 +63,8 @@ export class InoculacaoController {
 
 	static deleteInoculacao(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		InoculacaoModel.deleteInoculacao(id, company, (err, _results) => {
+
+		InoculacaoModel.deleteInoculacao(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

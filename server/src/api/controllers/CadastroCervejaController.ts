@@ -3,9 +3,8 @@ import { CervejaModel } from "../models/CadastroCervejaModel";
 
 export class CadastroCervejaController {
 	static getCerveja(_req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
-		CervejaModel.getCervejas(company, (err, results) => {
+
+		CervejaModel.getCervejas((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -19,13 +18,11 @@ export class CadastroCervejaController {
 	}
 
 	static addCerveja(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const nome = req.body["nome"] || undefined;
 		const codigo = req.body["codigo"] || undefined;
 
-		CervejaModel.getCervejaByCodeOrName(codigo, nome, company, (err, results) => {
+		CervejaModel.getCervejaByCodeOrName(codigo, nome, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -44,7 +41,7 @@ export class CadastroCervejaController {
 				const mapa = req.body["mapa"] || undefined;
 				const ingrediente = req.body["ingrediente"] || undefined;
 
-				CervejaModel.addCerveja(nome, codigo, grauAlcoolico, mapa, ingrediente, userId, company, (err, _results) => {
+				CervejaModel.addCerveja(nome, codigo, grauAlcoolico, mapa, ingrediente, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -64,9 +61,8 @@ export class CadastroCervejaController {
 
 	static deleteCerveja(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		CervejaModel.deleteCerveja(id, company, (err, _results) => {
+
+		CervejaModel.deleteCerveja(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

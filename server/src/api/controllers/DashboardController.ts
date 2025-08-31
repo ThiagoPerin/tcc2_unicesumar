@@ -3,9 +3,8 @@ import { DashboardModel } from "../models/DashboardModel";
 
 export class DashboardController {
 	static getDonutOp(_req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
-		DashboardModel.getDonutOp(company, (err, results) => {
+
+		DashboardModel.getDonutOp((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -18,9 +17,8 @@ export class DashboardController {
 		});
 	}
 	static getBarOp(_req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
-		DashboardModel.getBarOp(company, (err, results) => {
+
+		DashboardModel.getBarOp((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -33,9 +31,8 @@ export class DashboardController {
 		});
 	}
 	static getDonutLatas(_req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
-		DashboardModel.getDonutLatas(company, (err, results) => {
+
+		DashboardModel.getDonutLatas((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -48,9 +45,8 @@ export class DashboardController {
 		});
 	}
 	static getDonutLatasDetalhado(_req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
-		DashboardModel.getDonutLatasDetalhado(company, (err, results) => {
+
+		DashboardModel.getDonutLatasDetalhado((err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class CarbonatacaoController {
 	static getCarbonatacao(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		CarbonatacaoModel.getCarbonatacao(numOperacao, company, (err, results) => {
+		CarbonatacaoModel.getCarbonatacao(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class CarbonatacaoController {
 	}
 
 	static addCarbonatacao(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -48,7 +45,7 @@ export class CarbonatacaoController {
 				const responsavel = req.body["responsavel"] || undefined;
 				const observacoes = req.body["observacoes"] || undefined;
 
-				CarbonatacaoModel.addCarbonatacao(dataCarbonatacao, tanque, temperaturaInicial, temperaturaFinal, horaInicio, horaFim, pressao, responsavel, observacoes, numOperacao, userId, company, (err, _results) => {
+				CarbonatacaoModel.addCarbonatacao(dataCarbonatacao, tanque, temperaturaInicial, temperaturaFinal, horaInicio, horaFim, pressao, responsavel, observacoes, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -68,9 +65,8 @@ export class CarbonatacaoController {
 
 	static deleteCarbonatacao(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		CarbonatacaoModel.deleteCarbonatacao(id, company, (err, _results) => {
+
+		CarbonatacaoModel.deleteCarbonatacao(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

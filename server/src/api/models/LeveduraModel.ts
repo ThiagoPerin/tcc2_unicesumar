@@ -3,15 +3,14 @@ import { pool } from "../../www";
 export class LeveduraModel {
 	static getLevedura(
 		numOperacao: number | undefined,
-		company: string,
 		callback: (error: any, results: any) => void
 	) {
 		pool.query(
-			`SELECT * FROM ${process.env["MYSQL_DB"] as string}.COLETA_LEVEDURA WHERE NUM_OPERACAO = ? AND COMPANY = ? AND DELETED_AT IS NULL ORDER BY DATA ASC;`,
-			[numOperacao, company],
+			`SELECT * FROM ${process.env["MYSQL_DB"] as string}.COLETA_LEVEDURA WHERE NUM_OPERACAO = ? AND DELETED_AT IS NULL ORDER BY DATA ASC;`,
+			[numOperacao],
 			callback
 		);
-	}	
+	}
 
 	static addLevedura(
 		dataColeta: string,
@@ -23,25 +22,22 @@ export class LeveduraModel {
 		responsavel: string,
 		observacoes: string,
 		numOperacao: number,
-		userId: string,
-		company: string,
 		callback: (error: any, results: any) => void
 	) {
 		pool.query(
 			`INSERT INTO ${process.env["MYSQL_DB"] as string}.COLETA_LEVEDURA SET
-      DATA = ?,TANQUE = ?,TEMPERATURA = ?,DESTINO = ?,LOTE = ?,QUANTIDADE = ?,RESPONSAVEL = ?,OBSERVACOES = ?, NUM_OPERACAO = ?, USER_ID = ?, COMPANY = ?;`,
-			[dataColeta, tanque, temperatura, destino, lote, quantidade, responsavel, observacoes, numOperacao, userId, company],
+      DATA = ?,TANQUE = ?,TEMPERATURA = ?,DESTINO = ?,LOTE = ?,QUANTIDADE = ?,RESPONSAVEL = ?,OBSERVACOES = ?, NUM_OPERACAO = ?;`,
+			[dataColeta, tanque, temperatura, destino, lote, quantidade, responsavel, observacoes, numOperacao],
 			callback
 		);
 	}
 
 	static deleteLevedura(
 		id: number,
-		company: string,
 		callback: (error: any, results: any) => void) {
 		pool.query(
-			`UPDATE ${process.env["MYSQL_DB"] as string}.COLETA_LEVEDURA SET DELETED_AT = CURDATE() WHERE id = ? AND COMPANY = ?;`,
-			[id, company],
+			`UPDATE ${process.env["MYSQL_DB"] as string}.COLETA_LEVEDURA SET DELETED_AT = CURDATE() WHERE id = ?;`,
+			[id],
 			callback
 		);
 	}

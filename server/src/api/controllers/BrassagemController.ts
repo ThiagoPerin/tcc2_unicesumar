@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class BrassagemController {
 	static getBrassagem(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		BrassagemModel.getBrassagem(numOperacao, company, (err, results) => {
+		BrassagemModel.getBrassagem(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class BrassagemController {
 	}
 
 	static addBrassagem(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -68,7 +65,7 @@ export class BrassagemController {
 				const keg = req.body["keg"] || undefined;
 				const responsavel = req.body["responsavel"] || undefined;
 
-				BrassagemModel.addBrassagem(dataEvaseSaca, turno, lote, validade, posicaoSuperior, posicaoInferior, dia, horaMashIn, densidadePrimario, phLab, densidadeFinalSparge, horaInicioMashOut, volume, temperaturaMedicaoVolume, densidadeFabrica, pesoTina, densidadeLab, horaInicioFervura, medicaoCorrecaoPh, volumeFinalFervura, pesoFinalTina, trub, densidadeFinalFab, densidadeFinalLab, temperaturaTransf, volumeTransf, horaFim, keg, responsavel, numOperacao, userId, company, (err, _results) => {
+				BrassagemModel.addBrassagem(dataEvaseSaca, turno, lote, validade, posicaoSuperior, posicaoInferior, dia, horaMashIn, densidadePrimario, phLab, densidadeFinalSparge, horaInicioMashOut, volume, temperaturaMedicaoVolume, densidadeFabrica, pesoTina, densidadeLab, horaInicioFervura, medicaoCorrecaoPh, volumeFinalFervura, pesoFinalTina, trub, densidadeFinalFab, densidadeFinalLab, temperaturaTransf, volumeTransf, horaFim, keg, responsavel, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -88,9 +85,8 @@ export class BrassagemController {
 
 	static deleteBrassagem(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		BrassagemModel.deleteBrassagem(id, company, (err, _results) => {
+
+		BrassagemModel.deleteBrassagem(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

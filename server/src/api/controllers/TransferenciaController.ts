@@ -5,9 +5,8 @@ import { OpModel } from "../models/OpModel";
 export class TransferenciaController {
 	static getTransferencia(req: Request, res: Response) {
 
-		const company = "empresa_teste_123";
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		TransferenciaModel.getTransferencia(numOperacao, company, (err, results) => {
+		TransferenciaModel.getTransferencia(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -21,11 +20,9 @@ export class TransferenciaController {
 	}
 
 	static addTransferencia(req: Request, res: Response) {
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, async (err, results) => {
+		OpModel.getOpByCode(numOperacao, async (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -51,7 +48,7 @@ export class TransferenciaController {
 				const observacoes = req.body["observacoes"] || undefined;
 
 				TransferenciaModel.addTransferencia(tipoOperacao, dataTransferencia, deTanque, paraTanque, temperatura, purga, transfTotal,
-					descarte, carb, responsavel, observacoes, numOperacao, userId, company, (err, _results) => {
+					descarte, carb, responsavel, observacoes, numOperacao, (err, _results) => {
 						if (err) {
 							console.log(err);
 							return res.status(500).json({
@@ -72,8 +69,7 @@ export class TransferenciaController {
 	static deleteTransferencia(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
 
-		const company = "empresa_teste_123";
-		TransferenciaModel.deleteTransferencia(id, company, (err, _results) => {
+		TransferenciaModel.deleteTransferencia(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({

@@ -2,11 +2,9 @@ import { pool } from "../../www";
 
 export class CervejaModel {
   static getCervejas(
-    company: string,
     callback: (error: any, results: any) => void) {
     pool.query(
-      `SELECT * FROM ${process.env["MYSQL_DB"] as string}.CERVEJAS WHERE COMPANY = ? AND DELETED_AT IS NULL ORDER BY DESCRICAO;`,
-      [company],
+      `SELECT * FROM ${process.env["MYSQL_DB"] as string}.CERVEJAS WHERE DELETED_AT IS NULL ORDER BY DESCRICAO;`,
       callback
     );
   }
@@ -14,12 +12,11 @@ export class CervejaModel {
   static getCervejaByCodeOrName(
     codigo: string,
     nome: string,
-    company: string,
     callback: (error: any, results: any) => void
   ) {
     pool.query(
-      `SELECT * FROM ${process.env["MYSQL_DB"] as string}.CERVEJAS WHERE (DESCRICAO = ? OR COD_CERVEJA = ?) AND COMPANY = ? AND DELETED_AT IS NULL;`,
-      [nome, codigo, company],
+      `SELECT * FROM ${process.env["MYSQL_DB"] as string}.CERVEJAS WHERE (DESCRICAO = ? OR COD_CERVEJA = ?) AND DELETED_AT IS NULL;`,
+      [nome, codigo],
       callback
     );
   }
@@ -30,25 +27,22 @@ export class CervejaModel {
     grauAlcoolico: number,
     mapa: string,
     ingrediente: string,
-    userId: string,
-    company: string,
     callback: (error: any, results: any) => void
   ) {
     pool.query(
       `INSERT INTO ${process.env["MYSQL_DB"] as string}.CERVEJAS SET
-      DESCRICAO = ?, COD_CERVEJA = ?, GRAU_ALCOOLICO = ?, REGISTRO_MAPA = ?, INGREDIENTE = ?, USER_ID = ?, COMPANY = ?;`,
-      [nome, codigo, grauAlcoolico, mapa, ingrediente, userId, company],
+      DESCRICAO = ?, COD_CERVEJA = ?, GRAU_ALCOOLICO = ?, REGISTRO_MAPA = ?, INGREDIENTE = ?;`,
+      [nome, codigo, grauAlcoolico, mapa, ingrediente],
       callback
     );
   }
 
   static deleteCerveja(
-    id: number, 
-    company: string,
+    id: number,
     callback: (error: any, results: any) => void) {
     pool.query(
-      `UPDATE ${process.env["MYSQL_DB"] as string}.CERVEJAS SET DELETED_AT = CURDATE() WHERE id = ? AND COMPANY = ?;`,
-      [id, company],
+      `UPDATE ${process.env["MYSQL_DB"] as string}.CERVEJAS SET DELETED_AT = CURDATE() WHERE id = ?;`,
+      [id],
       callback
     );
   }

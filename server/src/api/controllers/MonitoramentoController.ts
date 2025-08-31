@@ -4,10 +4,9 @@ import { OpModel } from "../models/OpModel";
 
 export class MonitoramentoController {
 	static getMonitoramento(req: Request, res: Response) {
-		
-		const company = "empresa_teste_123";
+
 		const numOperacao = Number(req.query["numOperacao"]) || undefined;
-		MonitoramentoModel.getMonitoramento(numOperacao, company, (err, results) => {
+		MonitoramentoModel.getMonitoramento(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
@@ -20,12 +19,10 @@ export class MonitoramentoController {
 		});
 	}
 
-	static addMonitoramento(req: Request, res: Response) { 
-		
-		const userId = "user_teste_123";
-		const company = "empresa_teste_123";
+	static addMonitoramento(req: Request, res: Response) {
+
 		const numOperacao = req.body["numOperacao"] || undefined;
-		OpModel.getOpByCode(numOperacao, company, (err, results) => {
+		OpModel.getOpByCode(numOperacao, (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.json({
@@ -44,7 +41,7 @@ export class MonitoramentoController {
 				const temperatura = req.body["temperatura"] || 0;
 				const alteracao = req.body["alteracao"] || 0;
 
-				MonitoramentoModel.addMonitoramento(dataMonitoramento, hora, extrato, temperatura, alteracao, numOperacao, userId, company, (err, _results) => {
+				MonitoramentoModel.addMonitoramento(dataMonitoramento, hora, extrato, temperatura, alteracao, numOperacao, (err, _results) => {
 					if (err) {
 						console.log(err);
 						return res.status(500).json({
@@ -64,9 +61,8 @@ export class MonitoramentoController {
 
 	static deleteMonitoramento(req: Request, res: Response) {
 		const id = req.body["id"] || undefined;
-		
-		const company = "empresa_teste_123";
-		MonitoramentoModel.deleteMonitoramento(id, company, (err, _results) => {
+
+		MonitoramentoModel.deleteMonitoramento(id, (err, _results) => {
 			if (err) {
 				console.log(err);
 				return res.status(500).json({
