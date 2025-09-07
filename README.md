@@ -99,10 +99,16 @@ O sistema segue o padrão **3 camadas**:
 2. Configure o arquivo `.env` com as variáveis necessárias:  
    ```env
    PORT=3000
-   MYSQL_HOST=localhost
-   MYSQL_USER=root
-   MYSQL_PASSWORD=senha
-   MYSQL_DB=cervejaria
+
+   MYSQL_HOST=
+   MYSQL_PORT=
+   MYSQL_USER=
+   MYSQL_PASS=
+   MYSQL_DB=
+
+   VALID_USER=
+   USER_SALT=
+   VALID_HASH=
    ```
 
 3. Instale as dependências no frontend e backend:  
