@@ -1,8 +1,5 @@
-#!/usr/bin/env node
 import dotenv from "dotenv";
-if (process.env["NODE_ENV"] === "development") {
-    dotenv.config();
-}
+dotenv.config();
 import app from "../app";
 import http from "node:http";
 import mysql from "mysql2";
